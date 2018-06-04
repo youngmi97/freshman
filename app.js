@@ -16,6 +16,9 @@ var db = mongoose.connection;
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+const players = require('./routes/players')
+
+
 
 // Init App
 var app = express();
@@ -27,7 +30,7 @@ app.set('view engine', 'handlebars');
 
 // BodyParser Middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Set Static Folder
@@ -75,9 +78,9 @@ app.use(function (req, res, next) {
 });
 
 
-
 app.use('/', routes);
 app.use('/users', users);
+app.use('/users', players);
 
 // Set Port
 app.set('port', (process.env.PORT || 3000));
@@ -85,3 +88,10 @@ app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), function(){
 	console.log('Server started on port '+app.get('port'));
 });
+
+app.get('/', function(req, res) {
+  res.render('index', { username: req.user.username });
+});
+
+
+

@@ -1,26 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>LoginApp</title>
+	<title>Project</title>
 	<link rel="stylesheet" href="/css/bootstrap.css" />
 	<link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet"> 
+  <meta charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+    var userName = $('#userName').text();
+    var intials = $('#userName').text().charAt(0).toUpperCase();
+    var profileImage = $('#profileImage').text(intials);
+    });
+  </script>
 </head>
 <body>
 	<div class="container">
       <div class="header clearfix">
-        <nav>
+
+        <div class="logo">
+          <h1>Stats</h1>
+        </div>
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
           <ul class="nav nav-pills pull-right">
             {{#if user}}
-              <li role="presentation"><a href="/">Dashboard</a></li>
+              <li role="presentation">
+                <div id="profileImage" ></div>
+              </li>
+              <li>
+                <a id="userName">{{user.username}}</a>
+              </li>
               <li role="presentation"><a href="/users/logout">Logout</a></li>
             {{else}}
               <li role="presentation"><a href="/users/login">Login</a></li>
               <li role="presentation"><a href="/users/register">Register</a></li>
             {{/if}}
           </ul>
+          <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <ul class="nav nav-pills mr-auto">
+              {{#if user}}
+                <li class="nav-item" role="presentation"><a href="/users/lookup">LookUp</a></li>
+                
+                <li class="nav-item" role="presentation"><a href="/users/upload">Upload Stats</a></li>
+              {{else}}
+              
+            {{/if}}
+            </ul>
+          </div>
+          
         </nav>
-        <h3 class="text-muted">LoginApp</h3>
+
+        
       </div>
+	  
 
 
       <div class="row">
@@ -43,9 +78,7 @@
         
       </div>
 
-      <footer class="footer">
-        <p>&copy; 2015 LoginApp, Inc.</p>
-      </footer>
+
 
     </div> <!-- /container -->
 </body>

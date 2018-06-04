@@ -1,0 +1,116 @@
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet"> 
+    <script>
+        function myFunction() {
+        
+
+            var input, filter, table, tr, td, i;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        var cell = null;
+        var modal = document.getElementById('myModal');
+
+        var btn = document.getElementsByClassName("myBtn");
+
+        var span = document.getElementsByClassName("close");
+
+        btn.onclick = function() {
+            console.log("flag1");
+            cell = event.target;
+            modal.style.display = "block";
+        }
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        } 
+
+        function suggestion() {
+            console.log(cell);
+            cell.parent().children("div").toggle();
+        }
+    </script>
+</head>
+<body>
+    
+    <p>This is the stats for the Orange League </p>
+    <i  style="font-size:20px" class="fas fa-search"></i>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Players...">
+
+    <table id="myTable">
+        <tr>
+            <th>Name</th>
+            <th>Points</th>
+            <th>Rebounds</th>
+            <th>Assists</th>
+            <th>Steals</th>
+            <th>Blocks</th>
+            <th>TOs</th>
+            <th>Fouls</th>
+        </tr>
+
+        {{#each items}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td> <button  type="button" class="suggest btn myBtn"  data-toggle="modal" data-target="#myModal">{{this.points}}</button><div style="display:none;">S</div></td>
+                <td> <button  type="button" class="suggest btn myBtn"   data-toggle="modal" data-target="#myModal">{{this.rebounds}}</button><div style="display:none;">S</div></td>
+                <td> <button  type="button" class="suggest btn myBtn"  data-toggle="modal" data-target="#myModal">{{this.assists}}</button><div style="display:none;">S</div></td>
+                <td> <button  type="button" class="suggest btn myBtn"   data-toggle="modal" data-target="#myModal">{{this.steals}}</button><div style="display:none;">S</div></td>
+                <td> <button  type="button" class="suggest btn myBtn" data-toggle="modal" data-target="#myModal">{{this.blocks}}</button><div style="display:none;">S</div></td>
+                <td> <button  type="button" class="suggest btn myBtn"  data-toggle="modal" data-target="#myModal">{{this.turnovers}}</button><div style="display:none;">S</div></td>
+                <td> <button  type="button" class="suggest btn myBtn"  data-toggle="modal" data-target="#myModal">{{this.fouls}}</button><div style="display:none;">S</div></td>
+            </tr>
+        {{/each}}
+    </table>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+                    <h4 style="text-align: center" class=" modal-title">Hello {{user.name}}!</h4>
+                    <h4 style="text-align: center" class=" modal-title">You are suggesting an edit</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Suggest Figure to:</p>
+                    <input type="text" name="FirstName" value="Number"><br>
+                    <button type="submit" onclick="suggestion()" class="btn btn-default">Suggest</button>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+

@@ -15,6 +15,38 @@ router.get('/login', function (req, res) {
 	res.render('login');
 });
 
+router.get('/lookup', function (req, res) {
+	res.render('lookup');
+});
+
+
+/*
+router.get('/upload', function (req, res) {
+	res.render('upload');
+});
+
+router.get('/upload/stat_upload', function (req, res) {
+	res.render('stat_upload');
+});
+
+*/
+
+
+
+/*
+router.get('/lookup/orangeleague_lookup', function (req, res) {
+	res.render('orangeleague_lookup');
+});
+
+*/
+
+
+
+router.get('/index', function(req, res){
+  res.render('index', { username: req.user.username });
+});
+
+
 // Register User
 router.post('/register', function (req, res) {
 	var name = req.body.name;
@@ -101,7 +133,7 @@ passport.deserializeUser(function (id, done) {
 });
 
 router.post('/login',
-	passport.authenticate('local', { successRedirect: '/', failureRedirect: '/users/login', failureFlash: true }),
+	passport.authenticate('local', { successRedirect: '/users/lookup', failureRedirect: '/users/login', failureFlash: true }),
 	function (req, res) {
 		res.redirect('/');
 	});
@@ -114,4 +146,11 @@ router.get('/logout', function (req, res) {
 	res.redirect('/users/login');
 });
 
+
+
 module.exports = router;
+
+
+
+
+
